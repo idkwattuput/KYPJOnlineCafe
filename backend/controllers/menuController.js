@@ -83,6 +83,7 @@ const getAllItemBasedCafeCustomer = asyncHandler(async (req, res) => {
 });
 
 const getAllItem = asyncHandler(async (req, res) => {
+	checkAndCreateTable()
 
 	const allItemQuery = 'SELECT * FROM Menu'
 	const allItemBasedCafe = await pool.query(allItemQuery);
