@@ -12,7 +12,7 @@ import Confirm from "../features/Confirm/Confirm";
 const Layout = () => {
 	const location = useLocation();
 	const customer_id = Cookies.get("customer_id");
-	const { data } = useFetch(`http://localhost:3500/order/pending/${customer_id}`);
+	const { data } = useFetch(`https://kypjcafeapi.onrender.com/order/pending/${customer_id}`);
 	const hasOrders = data.length > 0;
 	Cookies.set("has_orders", hasOrders ? true : false);
 	const progresss = Cookies.get("progress") === "true";

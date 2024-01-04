@@ -78,7 +78,7 @@ const Menu = () => {
 					// Display menu items if data is not empty
 					data.map((item) => (
 						<div key={item.item_id} className="px-3 py-3 mt-4 font-medium text-white bg-gradient-to-r from-slate-400 to-slate-500 rounded-3xl drop-shadow-lg">
-							<img src={`http://localhost:3500/images/${item.item_image_url}`} alt="" className="rounded-2xl w-52 max-h-[116px] m-auto" />
+							<img src={`https://kypjcafeapi.onrender.com/images/${item.item_image_url}`} alt="" className="rounded-2xl w-52 max-h-[116px] m-auto" />
 							<div className="flex justify-between items-center">
 								<p>{item.item_name}</p>
 								<p>{item.price}</p>

@@ -161,7 +161,7 @@ const ItemFeed = ({ setSelectedCategory, selectedCategory }) => {
                 className="px-3 py-3 mt-4 font-medium text-white bg-gradient-to-r  from-slate-400 to-slate-500 rounded-3xl drop-shadow-lg"
               >
                 <img
-                  src={`http://localhost:3500/images/${item.item_image_url}`}
+                  src={`https://kypjcafeapi.onrender.com/images/${item.item_image_url}`}
                   alt=""
                   className="rounded-2xl w-52 max-h-[116px] m-auto"
                 />

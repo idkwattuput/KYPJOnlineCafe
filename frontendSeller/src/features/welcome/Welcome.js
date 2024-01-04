@@ -36,7 +36,7 @@ const Welcome = () => {
 							data.map((cafe) => (
 								<Link to={"/welcome/cafe/cafeDetail"}>
 									<div key={cafe.id} className="flex text-black m-auto transition duration-300 ease-in-out card max-w-fit max-h-max delay-60 hover:-translate-y-1 hover:scale-105">
-										<img src={`http://localhost:3500/images/${cafe.cafe_image_url}`} alt="" className="max-w-full rounded-t-3xl h-52" />
+										<img src={`https://kypjcafeapi.onrender.com/images/${cafe.cafe_image_url}`} alt="" className="max-w-full rounded-t-3xl h-52" />
 										<div className="flex justify-center items-center min-w-full p-4 bg-white card-body rounded-b-3xl">
 											<h3 className="card-title">{cafe.cafe_name}</h3>
 											<p className="font-thin">{cafe.description}</p>
