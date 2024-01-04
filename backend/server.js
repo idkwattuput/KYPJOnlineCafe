@@ -4,11 +4,12 @@ const cors = require('cors')
 const path = require('path')
 const cookieParser = require('cookie-parser')
 const { logger } = require('./middleware/logger')
+const allowedOrigin = require('./config/allowedOrigin')
 require('dotenv').config()
 
 //middleware
 app.use(logger)
-app.use(cors())
+app.use(cors(allowedOrigin))
 app.use(express.json())
 app.use(cookieParser())
 //app.use(express.static('public'))
