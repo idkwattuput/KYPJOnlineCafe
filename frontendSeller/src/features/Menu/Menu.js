@@ -6,7 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 const Menu = () => {
 	const seller_id = Cookies.get("seller_id");
-	const { data, isLoading, error } = useFetch(`http://localhost:3500/menu/${seller_id}`);
+	const { data, isLoading, error } = useFetch(`https://kypjcafeapi.onrender.com/menu/${seller_id}`);
 	const navigate = useNavigate();
 	const hasCafe = Cookies.get("has_cafe") === "true"
 
@@ -27,7 +27,7 @@ const Menu = () => {
 
 		if (userConfirmed) {
 			try {
-				const response = await fetch(`http://localhost:3500/menu/item/${item_id}`, {
+				const response = await fetch(`https://kypjcafeapi.onrender.com/menu/item/${item_id}`, {
 					method: "DELETE",
 					headers: {
 						"Content-Type": "application/json",

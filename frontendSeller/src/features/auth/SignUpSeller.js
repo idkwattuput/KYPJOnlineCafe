@@ -33,7 +33,7 @@ const SignUp = () => {
 			setEmail(seller_email);
 
 			try {
-				const response = await fetch("http://localhost:3500/seller", {
+				const response = await fetch("https://kypjcafeapi.onrender.com/seller", {
 					method: "POST",
 					headers: {
 						"Content-Type": "application/json",

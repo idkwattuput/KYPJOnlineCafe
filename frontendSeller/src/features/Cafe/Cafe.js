@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 const Cafe = () => {
 	const [cafe_image_url, setImage] = useState();
 	const seller_id = Cookies.get("seller_id");
-	const { data } = useFetch(`http://localhost:3500/cafe/${seller_id}`);
+	const { data } = useFetch(`https://kypjcafeapi.onrender.com/cafe/${seller_id}`);
 	const navigate = useNavigate();
 	const hasItem = Cookies.get("has_items") === "true";
 
@@ -23,7 +23,7 @@ const Cafe = () => {
 				try {
 					const cafe_id = data[0].cafe_id;
 
-					const response = await fetch(`http://localhost:3500/cafe/${cafe_id}`, {
+					const response = await fetch(`https://kypjcafeapi.onrender.com/cafe/${cafe_id}`, {
 						method: "DELETE",
 						headers: {
 							"Content-Type": "application/json",

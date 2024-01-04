@@ -16,7 +16,7 @@ const UpdateMenu = () => {
 
     const seller_id = Cookies.get("seller_id");
     const navigate = useNavigate();
-    const { data } = useFetch(`http://localhost:3500/menu/item/${item_id}`);
+    const { data } = useFetch(`https://kypjcafeapi.onrender.com/menu/item/${item_id}`);
 
     // Use useEffect to update state when data is available
     useEffect(() => {
@@ -42,7 +42,7 @@ const UpdateMenu = () => {
             formData.append('itemImage', item_image_url);
             formData.append('item_id', item_id);
 
-            const response = await axios.patch('http://localhost:3500/menu', formData);
+            const response = await axios.patch('https://kypjcafeapi.onrender.com/menu', formData);
 
             if (response.status === 200 || response.status === 201) {
                 console.log("Update successful");

@@ -14,7 +14,7 @@ const CreateCafe = () => {
 
   const navigate = useNavigate();
 
-  const { data } = useFetch("http://localhost:3500/cafe");
+  const { data } = useFetch("https://kypjcafeapi.onrender.com/cafe");
 
   const seller_id = Cookies.get("seller_id");
   console.log(seller_id);
@@ -32,7 +32,7 @@ const CreateCafe = () => {
       formData.append("seller_id", seller_id);
 
       const response = await axios.post(
-        "http://localhost:3500/cafe/upload",
+        "https://kypjcafeapi.onrender.com/cafe/upload",
         formData
       );
 

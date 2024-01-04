@@ -14,7 +14,7 @@ const UpdateCafe = () => {
 
   const seller_id = Cookies.get("seller_id");
   const navigate = useNavigate();
-  const { data } = useFetch(`http://localhost:3500/cafe/${seller_id}`);
+  const { data } = useFetch(`https://kypjcafeapi.onrender.com/cafe/${seller_id}`);
 
   // Use useEffect to update state when data is available
   useEffect(() => {
@@ -45,7 +45,7 @@ const UpdateCafe = () => {
       }
 
       const response = await axios.patch(
-        "http://localhost:3500/cafe/update",
+        "https://kypjcafeapi.onrender.com/cafe/update",
         formData
       );
 

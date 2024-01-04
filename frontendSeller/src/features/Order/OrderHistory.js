@@ -8,7 +8,7 @@ import Cookies from "js-cookie";
 const OrderHistory = () => {
 	const seller_id = Cookies.get("seller_id");
 
-	const { data } = useFetch(`http://localhost:3500/order/${seller_id}`);
+	const { data } = useFetch(`https://kypjcafeapi.onrender.com/order/${seller_id}`);
 
 	// Create a map to group items by order_id and customer_name
 	const groupedData = new Map();

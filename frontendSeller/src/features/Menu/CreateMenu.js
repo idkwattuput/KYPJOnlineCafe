@@ -13,7 +13,7 @@ const CreateMenu = () => {
     const navigate = useNavigate()
 
 	const seller_id = Cookies.get("seller_id");
-	const { data } = useFetch(`http://localhost:3500/cafe/${seller_id}`);
+	const { data } = useFetch(`https://kypjcafeapi.onrender.com/cafe/${seller_id}`);
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -26,7 +26,7 @@ const CreateMenu = () => {
 			formData.append("cafe_id", data[0].cafe_id);
 			formData.append("itemImage", item_image_url);
 
-			const response = await axios.post("http://localhost:3500/menu", formData);
+			const response = await axios.post("https://kypjcafeapi.onrender.com/menu", formData);
 
 			if (response.status === 200 || response.status === 201) {
 				console.log("Create successful");

@@ -7,7 +7,7 @@ const OrderHistoryDetail = () => {
   const navigate = useNavigate();
   const { order_id } = useParams();
   const { data } = useFetch(
-    `http://localhost:3500/order/orderReceipt/${order_id}`
+    `https://kypjcafeapi.onrender.com/order/orderReceipt/${order_id}`
   );
 
   const isoDateString = data.length > 0 ? data[0].order_date : null;

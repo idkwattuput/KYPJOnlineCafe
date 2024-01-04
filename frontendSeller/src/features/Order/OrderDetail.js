@@ -8,7 +8,7 @@ const OrderDetail = () => {
 	const navigate = useNavigate();
 	const { order_id } = useParams();
 	const cafe_id = Cookies.get("cafe_id");
-	const { data, isLoading, error } = useFetch(`http://localhost:3500/order/orderListSeller/${cafe_id}/${order_id}`);
+	const { data, isLoading, error } = useFetch(`https://kypjcafeapi.onrender.com/order/orderListSeller/${cafe_id}/${order_id}`);
 
 	
 	if (isLoading) {
@@ -33,7 +33,7 @@ const OrderDetail = () => {
 
 	const orderCompleted = async (e) => {
 		try {
-			const response = await fetch(`http://localhost:3500/order/${order_id}`, {
+			const response = await fetch(`https://kypjcafeapi.onrender.com/order/${order_id}`, {
 				method: "PATCH",
 				headers: {
 					"Content-Type": "application/json",
@@ -55,7 +55,7 @@ const OrderDetail = () => {
 
 		if (userConfirmed) {
 			try {
-				const response = await fetch(`http://localhost:3500/order/${order_id}`, {
+				const response = await fetch(`https://kypjcafeapi.onrender.com/order/${order_id}`, {
 					method: "DELETE",
 					headers: {
 						"Content-Type": "application/json",

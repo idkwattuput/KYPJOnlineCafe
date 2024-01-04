@@ -8,7 +8,7 @@ import Order from "../Order/Order";
 const Welcome = () => {
 	const seller_id = Cookies.get("seller_id");
 	const navigate = useNavigate();
-	const { data } = useFetch(`http://localhost:3500/cafe/${seller_id}`);
+	const { data } = useFetch(`https://kypjcafeapi.onrender.com/cafe/${seller_id}`);
 	const hasCafe = data.length > 0;
 
 	useEffect(() => {

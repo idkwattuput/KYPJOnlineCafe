@@ -9,7 +9,7 @@ const Order = ({cafe_id}) => {
     console.log(cafe_id)
     const cafeid = Cookies.set("cafe_id", cafe_id)
     const seller_id = Cookies.get("seller_id");
-    const { data } = useFetch(`http://localhost:3500/cafe/${seller_id}`)
+    const { data } = useFetch(`https://kypjcafeapi.onrender.com/cafe/${seller_id}`)
     const [isCafeOpen, setIsCafeOpen] = useState()
 
     useEffect(() => {
@@ -28,7 +28,7 @@ const Order = ({cafe_id}) => {
                 seller_id
             }
             // Send a request to the backend to update the "is_open" status
-            const response = await fetch('http://localhost:3500/cafe/openCafe', {
+            const response = await fetch('https://kypjcafeapi.onrender.com/cafe/openCafe', {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',

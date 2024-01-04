@@ -26,7 +26,7 @@ const Login = () => {
 		};
 
 		try {
-			const response = await fetch("http://localhost:3500/auth/seller", {
+			const response = await fetch("https://kypjcafeapi.onrender.com/auth/seller", {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
@@ -64,7 +64,7 @@ const Login = () => {
 
 	return (
 		<div className="flex page bg-gradient-to-r from-slate-200 to-slate-500 font-Rubik text-zinc-900 antialiased">
-						<img src="gmbr_makanan.jpg" alt="" className="h-screen drop-shadow-lg " />
+			<img src="gmbr_makanan.jpg" alt="" className="h-screen drop-shadow-lg " />
 
 
 			<div className="flex flex-col items-start justify-center m-auto">
