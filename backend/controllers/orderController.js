@@ -1,11 +1,66 @@
 const asyncHandler = require('express-async-handler');
 const pool = require('../config/dbConn');
 
+// Check if the Customer table exists, if not, create it
+const checkAndCreateTable = async () => {
+  try {
+    const checkTableQuery = 'SELECT * FROM information_schema.tables WHERE table_name = $1';
+    const result = await pool.query(checkTableQuery, ['Orders']);
+
+    if (result.rows.length === 0) {
+      // The table doesn't exist, create it
+      const createTableQuery = `
+			CREATE TABLE Orders(
+        order_id SERIAL PRIMARY KEY,
+        customer_id INT REFERENCES Customer(customer_id),
+        order_date DATE,
+        order_status VARCHAR(100),
+        order_completed BOOLEAN
+    );
+            `;
+      await pool.query(createTableQuery);
+      console.log('Customer table created successfully');
+    }
+  } catch (error) {
+    console.error('Error checking/creating Customer table:', error.message);
+  }
+};
+
+// Call the function to check and create the table when the application starts
+checkAndCreateTable();
+
+// Check if the Customer table exists, if not, create it
+const checkAndCreateTableOrderItems = async () => {
+  try {
+    const checkTableQuery = 'SELECT * FROM information_schema.tables WHERE table_name = $1';
+    const result = await pool.query(checkTableQuery, ['OrdersItems']);
+
+    if (result.rows.length === 0) {
+      // The table doesn't exist, create it
+      const createTableQuery = `
+			CREATE TABLE OrdersItems (
+        order_item_id SERIAL PRIMARY KEY,
+        order_id INT REFERENCES Orders(order_id) ON DELETE CASCADE,
+        item_id INT REFERENCES Menu(item_id) ON DELETE CASCADE,
+        quantity INT
+    );;
+            `;
+      await pool.query(createTableQuery);
+      console.log('Customer table created successfully');
+    }
+  } catch (error) {
+    console.error('Error checking/creating Customer table:', error.message);
+  }
+};
+
+// Call the function to check and create the table when the application starts
+checkAndCreateTableOrderItems();
+
 const getAllOrder = asyncHandler(async (req, res) => {
   const { seller_id } = req.params
 
   const allOrderQuery = 'SELECT m.item_id, m.item_name, m.price, o.order_id, o.order_date, oi.order_item_id, oi.quantity, c.name AS customer_name, cf.cafe_id, s.seller_id FROM Menu AS m INNER JOIN OrdersItems AS oi ON m.item_id = oi.item_id INNER JOIN Orders AS o ON oi.order_id = o.order_id INNER JOIN Customer AS c ON o.customer_id = c.customer_id INNER JOIN Cafe AS cf ON m.cafe_id = cf.cafe_id INNER JOIN Seller As s ON cf.seller_id = s.seller_id WHERE o.order_completed = true AND s.seller_id = $1 ORDER BY o.order_id DESC';
-  const allOrder = await pool.query(allOrderQuery,[seller_id])
+  const allOrder = await pool.query(allOrderQuery, [seller_id])
 
   if (!allOrder.rows.length) {
     return res.status(400).json({ message: 'No order found' });
@@ -37,7 +92,7 @@ const getOrderById = asyncHandler(async (req, res) => {
 })
 
 const orderCompleted = asyncHandler(async (req, res) => {
-  const {order_id} = req.params
+  const { order_id } = req.params
   const order_completed = true
 
   //is order_id exist?
@@ -75,7 +130,7 @@ const createOrder = asyncHandler(async (req, res) => {
 
   if (newOrders.rows.length > 0) {
     // Successfully inserted the order, now fetch and send the order details
-    const orderQuery = 'SELECT * FROM orders WHERE customer_id = $1'; 
+    const orderQuery = 'SELECT * FROM orders WHERE customer_id = $1';
     const order = await pool.query(orderQuery, [customer_id]);
 
     res.status(201).json({ message: `New orders from customer ${customer_id} created`, order: order.rows });
@@ -118,31 +173,31 @@ const getOrderDetailReceipt = asyncHandler(async (req, res) => {
 
 const getOrderDetailForSeller = asyncHandler(async (req, res) => {
   const { cafe_id } = req.params
-    // Retrieve item details for the given item_id
-    const itemsQuery = 'SELECT m.item_id,m.item_name,m.price,o.order_id,o.order_date,oi.order_item_id,oi.quantity,c.name AS customer_name, cf.cafe_id FROM Menu AS m INNER JOIN Cafe AS cf ON m.cafe_id = cf.cafe_id INNER JOIN OrdersItems AS oi ON m.item_id = oi.item_id INNER JOIN Orders AS o ON oi.order_id = o.order_id INNER JOIN Customer AS c ON o.customer_id = c.customer_id WHERE o.order_completed = false AND cf.cafe_id = $1';
-    const itemsResult = await pool.query(itemsQuery, [cafe_id]);
+  // Retrieve item details for the given item_id
+  const itemsQuery = 'SELECT m.item_id,m.item_name,m.price,o.order_id,o.order_date,oi.order_item_id,oi.quantity,c.name AS customer_name, cf.cafe_id FROM Menu AS m INNER JOIN Cafe AS cf ON m.cafe_id = cf.cafe_id INNER JOIN OrdersItems AS oi ON m.item_id = oi.item_id INNER JOIN Orders AS o ON oi.order_id = o.order_id INNER JOIN Customer AS c ON o.customer_id = c.customer_id WHERE o.order_completed = false AND cf.cafe_id = $1';
+  const itemsResult = await pool.query(itemsQuery, [cafe_id]);
 
-    if (!itemsResult.rows.length) {
-      return res.status(400).json({ message: 'No order yet' });
-    }
+  if (!itemsResult.rows.length) {
+    return res.status(400).json({ message: 'No order yet' });
+  }
 
-    if (!itemsResult.rows.length) {
-      return res.status(400).json({ message: 'No order found' });
-    }
-    res.json(itemsResult.rows);
+  if (!itemsResult.rows.length) {
+    return res.status(400).json({ message: 'No order found' });
+  }
+  res.json(itemsResult.rows);
 });
 
 const getOrderDetailForSeller2 = asyncHandler(async (req, res) => {
   const { cafe_id, order_id } = req.params
-    // Retrieve item details for the given item_id
-    const itemsQuery = 'SELECT m.item_id,m.item_name,m.price,o.order_id,o.order_date,oi.order_item_id,oi.quantity,c.name AS customer_name, cf.cafe_id FROM Menu AS m INNER JOIN Cafe AS cf ON m.cafe_id = cf.cafe_id INNER JOIN OrdersItems AS oi ON m.item_id = oi.item_id INNER JOIN Orders AS o ON oi.order_id = o.order_id INNER JOIN Customer AS c ON o.customer_id = c.customer_id WHERE o.order_completed = false AND cf.cafe_id = $1 AND oi.order_id = $2';
-    const itemsResult = await pool.query(itemsQuery, [cafe_id, order_id]);
+  // Retrieve item details for the given item_id
+  const itemsQuery = 'SELECT m.item_id,m.item_name,m.price,o.order_id,o.order_date,oi.order_item_id,oi.quantity,c.name AS customer_name, cf.cafe_id FROM Menu AS m INNER JOIN Cafe AS cf ON m.cafe_id = cf.cafe_id INNER JOIN OrdersItems AS oi ON m.item_id = oi.item_id INNER JOIN Orders AS o ON oi.order_id = o.order_id INNER JOIN Customer AS c ON o.customer_id = c.customer_id WHERE o.order_completed = false AND cf.cafe_id = $1 AND oi.order_id = $2';
+  const itemsResult = await pool.query(itemsQuery, [cafe_id, order_id]);
 
-    if (!itemsResult.rows.length) {
-      return res.status(400).json({ message: 'No order yet' });
-    }
+  if (!itemsResult.rows.length) {
+    return res.status(400).json({ message: 'No order yet' });
+  }
 
-    res.json(itemsResult.rows);
+  res.json(itemsResult.rows);
 });
 
 

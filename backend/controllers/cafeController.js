@@ -1,6 +1,36 @@
 const asyncHandler = require("express-async-handler");
 const pool = require("../config/dbConn");
 
+// Check if the Customer table exists, if not, create it
+const checkAndCreateTable = async () => {
+	try {
+		const checkTableQuery = 'SELECT * FROM information_schema.tables WHERE table_name = $1';
+		const result = await pool.query(checkTableQuery, ['Cafe']);
+
+		if (result.rows.length === 0) {
+			// The table doesn't exist, create it
+			const createTableQuery = `
+			CREATE TABLE Cafe(
+				cafe_id SERIAL PRIMARY KEY,
+				cafe_name VARCHAR(255),
+				cafe_location VARCHAR(255),
+				seller_id INT REFERENCES Seller(seller_id),
+				description VARCHAR(255),
+				cafe_image_url VARCHAR(255),
+				is_open BOOLEAN
+			);
+            `;
+			await pool.query(createTableQuery);
+			console.log('Customer table created successfully');
+		}
+	} catch (error) {
+		console.error('Error checking/creating Customer table:', error.message);
+	}
+};
+
+// Call the function to check and create the table when the application starts
+checkAndCreateTable();
+
 const getAllCafe = asyncHandler(async (req, res) => {
 	const allCafeQuery = "SELECT * FROM Cafe";
 	const allCafe = await pool.query(allCafeQuery);
