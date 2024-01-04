@@ -7,7 +7,7 @@ const checkAndCreateTable = async () => {
 		const checkTableQuery = 'SELECT * FROM information_schema.tables WHERE table_name = $1';
 		const result = await pool.query(checkTableQuery, ['Menu']);
 
-		if (!result.rows.length > 0) {
+		if (result.rows.length === 0) {
 			// The table doesn't exist, create it
 			const createTableQuery = `
 			CREATE TABLE Menu(
