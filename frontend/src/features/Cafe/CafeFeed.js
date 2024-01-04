@@ -3,7 +3,7 @@ import useFetch from "../../hooks/useFetch";
 import { Link } from "react-router-dom";
 
 const CafeFeed = () => {
-	const { data } = useFetch("http://localhost:3500/cafe");
+	const { data } = useFetch("https://kypjcafeapi.onrender.com/cafe");
 
 	// Filter out cafes that are open
 	const openCafes = data.filter((cafe) => cafe.is_open);

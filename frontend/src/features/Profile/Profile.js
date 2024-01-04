@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 
 const Profile = () => {
     const customer_id = Cookies.get("customer_id");
-    const {data} = useFetch(`http://localhost:3500/customer/${customer_id}`)
+    const {data} = useFetch(`https://kypjcafeapi.onrender.com/customer/${customer_id}`)
 
     if (!data || data.length === 0) {
         return <div>Loading...</div>; // Add loading indicator

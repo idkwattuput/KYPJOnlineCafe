@@ -15,7 +15,7 @@ const ConfirmOrder = () => {
 	const { order_id } = useParams();
 	const has_order = Cookies.get("has_orders") === "true";
 	Cookies.set("order_id", order_id);
-	const { data } = useFetch(`http://localhost:3500/order/orderReceipt/${order_id}`);
+	const { data } = useFetch(`https://kypjcafeapi.onrender.com/order/orderReceipt/${order_id}`);
 	console.log(data);
 
 	const isoDateString = data.length > 0 ? data[0].order_date : null;
@@ -38,7 +38,7 @@ const ConfirmOrder = () => {
 
 		if (userConfirmed) {
 			try {
-				const response = await fetch(`http://localhost:3500/order/${order_id}`, {
+				const response = await fetch(`https://kypjcafeapi.onrender.com/order/${order_id}`, {
 					method: "DELETE",
 					headers: {
 						"Content-Type": "application/json",

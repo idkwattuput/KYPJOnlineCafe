@@ -6,7 +6,7 @@ import useFetch from "../../hooks/useFetch";
 import { Link } from "react-router-dom";
 
 const Welcome = () => {
-	const { data } = useFetch("http://localhost:3500/menu");
+	const { data } = useFetch("https://kypjcafeapi.onrender.com/menu");
 
 	const [shuffledItems, setShuffledItems] = useState([]);
 

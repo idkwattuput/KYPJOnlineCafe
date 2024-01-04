@@ -9,7 +9,7 @@ const ItemFeed = ({ setSelectedCategory, selectedCategory }) => {
   const navigate = useNavigate();
   const { cafe_id } = useParams();
   const { data, isLoading, error } = useFetch(
-    `http://localhost:3500/menu/customerMenu/${cafe_id}`
+    `https://kypjcafeapi.onrender.com/${cafe_id}`
   );
   console.log(data);
 
@@ -97,7 +97,7 @@ const ItemFeed = ({ setSelectedCategory, selectedCategory }) => {
     if (items.length > 0) {
       try {
         // Send a POST request to create the order
-        const response = await fetch("http://localhost:3500/order", {
+        const response = await fetch("https://kypjcafeapi.onrender.com/order", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -123,7 +123,7 @@ const ItemFeed = ({ setSelectedCategory, selectedCategory }) => {
           console.log(dataForConfrimOrder);
 
           const response1 = await fetch(
-            "http://localhost:3500/order/confirmOrder",
+            "https://kypjcafeapi.onrender.com/order/confirmOrder",
             {
               method: "POST",
               headers: {

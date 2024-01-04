@@ -7,7 +7,7 @@ import Header from "../../components/Header";
 const OrderHistory = () => {
   const customer_id = Cookies.get("customer_id");
   const { data } = useFetch(
-    `http://localhost:3500/order/orderHistory/${customer_id}`
+    `https://kypjcafeapi.onrender.com/order/orderHistory/${customer_id}`
   );
   console.log(data);
 

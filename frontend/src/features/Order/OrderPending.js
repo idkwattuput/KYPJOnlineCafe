@@ -7,11 +7,8 @@ import { Link } from "react-router-dom";
 const OrderPending = () => {
   const customer_id = Cookies.get("customer_id");
   const { data } = useFetch(
-    `http://localhost:3500/order/pending/${customer_id}`
+    `https://kypjcafeapi.onrender.com/order/pending/${customer_id}`
   );
-
-  // const hasOrders = data.length > 0;
-  // Cookies.set("has_orders", hasOrders ? true : false);
 
   // Create a map to group items by order_id and customer_name
   const groupedData = new Map();

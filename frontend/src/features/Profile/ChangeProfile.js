@@ -16,7 +16,7 @@ const ChangeProfile = () => {
 
 	const navigate = useNavigate();
 
-	const { data } = useFetch(`http://localhost:3500/customer/${customer_id}`);
+	const { data } = useFetch(`https://kypjcafeapi.onrender.com/customer/${customer_id}`);
 
 	// Use useEffect to update state when data is available
 	useEffect(() => {
@@ -61,7 +61,7 @@ const ChangeProfile = () => {
 			setEmail(email);
 
 			try {
-				const response = await fetch("http://localhost:3500/customer", {
+				const response = await fetch("https://kypjcafeapi.onrender.com/customer", {
 					method: "PATCH",
 					headers: {
 						"Content-Type": "application/json",

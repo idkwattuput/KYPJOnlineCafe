@@ -11,7 +11,7 @@ import { AiOutlineCheck } from "react-icons/ai";
 
 const MenuNav = () => {
 	const { cafe_id } = useParams();
-	const { data } = useFetch(`http://localhost:3500/menu/customerMenu/${cafe_id}`);
+	const { data } = useFetch(`https://kypjcafeapi.onrender.com/menu/customerMenu/${cafe_id}`);
 	const [selectedCategory, setSelectedCategory] = useState(null);
 
 	const uniqueCategories = ["All", ...new Set(data.map((item) => item.is_available && item.categories))];
