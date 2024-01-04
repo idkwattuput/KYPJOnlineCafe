@@ -27,7 +27,7 @@ const Login = () => {
 		};
 
 		try {
-			const response = await fetch("https://kypjcafeapi.onrender.com", {
+			const response = await fetch("https://kypjcafeapi.onrender.com/customer", {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
