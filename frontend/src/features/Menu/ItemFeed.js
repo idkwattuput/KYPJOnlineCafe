@@ -9,7 +9,7 @@ const ItemFeed = ({ setSelectedCategory, selectedCategory }) => {
   const navigate = useNavigate();
   const { cafe_id } = useParams();
   const { data, isLoading, error } = useFetch(
-    `https://kypjcafeapi.onrender.com/${cafe_id}`
+    `https://kypjcafeapi.onrender.com/menu/customerMenu/${cafe_id}`
   );
   console.log(data);
 
